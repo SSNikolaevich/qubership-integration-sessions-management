@@ -28,13 +28,20 @@ import org.qubership.integration.platform.sessions.opensearch.OpenSearchClientSu
 import org.qubership.integration.platform.sessions.properties.opensearch.ClientProperties;
 import org.qubership.integration.platform.sessions.properties.opensearch.OpenSearchProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 @AutoConfiguration
 @EnableConfigurationProperties(OpenSearchProperties.class)
 public class OpenSearchAutoConfiguration {
+    @Bean
+    @ConditionalOnProperty(prefix = "dbaas", name = "enabled", havingValue = "false", matchIfMissing = false)
+    public OpenSearchClientSupplier openSearchClientSupplier(OpenSearchProperties properties) {
+        OpenSearchClient client = createOpenSearchClient(properties.client());
+        return new DefaultOpenSearchClientSupplier(client, properties.index().prefix());
+    }
+
     private OpenSearchClient createOpenSearchClient(ClientProperties properties) {
         AuthScope authScope = new AuthScope(null, null, -1, null, null);
         Credentials credentials = new UsernamePasswordCredentials(properties.username(), properties.password().toCharArray());
@@ -45,12 +52,5 @@ public class OpenSearchAutoConfiguration {
                 .setHttpClientConfigCallback(httpClientBuilder ->
                         httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
         return new OpenSearchClient(builder.build());
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(OpenSearchClientSupplier.class)
-    public OpenSearchClientSupplier openSearchClientSupplier(OpenSearchProperties properties) {
-        OpenSearchClient client = createOpenSearchClient(properties.client());
-        return new DefaultOpenSearchClientSupplier(client, properties.index().prefix());
     }
 }

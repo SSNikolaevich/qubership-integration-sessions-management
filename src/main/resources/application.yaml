@@ -97,8 +97,13 @@ qip:
       default-buffer-limit: ${OPENSEARCH_SESSION_DEFAULT_BUFFER_LIMIT:104857600}
   internal-services:
     designtime-catalog: qubership-integration-platform-designtime-catalog
+    engine: qubership-integration-platform-engine
 
 logging:
   level:
     root: ${ROOT_LOG_LEVEL:INFO}
   config: classpath:logback-spring.xml
+
+tenant:
+  default:
+    id: ""

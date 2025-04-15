@@ -19,11 +19,15 @@ package org.qubership.integration.platform.sessions.interceptors;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.qubership.integration.platform.sessions.logging.constant.BusinessIds;
 import org.qubership.integration.platform.sessions.logging.constant.ContextHeaders;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -31,14 +35,10 @@ public class MDCInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
-                             Object handler) {
+                             Object handler) throws Exception {
         try {
-            String requestId = request.getHeader(ContextHeaders.REQUEST_ID_HEADER);
-            if (requestId == null) {
-                requestId = UUID.randomUUID().toString();
-            }
-
-            MDC.put(ContextHeaders.REQUEST_ID, requestId);
+            handleRequestId(request);
+            handleBusinessIds(request);
         } catch (Exception e) {
             log.warn("Failed to process logging properties", e);
         }
@@ -54,5 +54,42 @@ public class MDCInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
+    }
+
+    private void handleRequestId(HttpServletRequest request) {
+        String requestId = request.getHeader(ContextHeaders.REQUEST_ID_HEADER);
+        if (requestId == null) {
+            requestId = UUID.randomUUID().toString();
+        }
+
+        MDC.put(ContextHeaders.REQUEST_ID, requestId);
+    }
+
+    private void handleBusinessIds(HttpServletRequest request) {
+        Map<String, Object> idsMap = new HashMap<>();
+
+        Map<String, Object> pathParamsMap = (Map<String, Object>) request.getAttribute(
+                HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        if (pathParamsMap != null) {
+            for (Map.Entry<String, Object> pathParamEntry : pathParamsMap.entrySet()) {
+                String logProperty = BusinessIds.MAPPING.get(pathParamEntry.getKey());
+                if (logProperty != null) {
+                    idsMap.put(logProperty, pathParamEntry.getValue());
+                }
+            }
+        }
+
+        Map<String, String[]> queryParamsMap = request.getParameterMap();
+        if (queryParamsMap != null) {
+            for (Map.Entry<String, String[]> queryParamEntry : queryParamsMap.entrySet()) {
+                String logProperty = BusinessIds.MAPPING.get(queryParamEntry.getKey());
+                String[] value = queryParamEntry.getValue();
+                if (logProperty != null && value.length == 1) {
+                    idsMap.put(logProperty, value[0]);
+                }
+            }
+        }
+
+        MDC.put(BusinessIds.BUSINESS_IDS, idsMap.toString());
     }
 }

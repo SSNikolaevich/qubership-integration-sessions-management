@@ -19,9 +19,14 @@
 
         <!-- BOMs -->
 
-        <context-propagation-bom.version>6.0.5</context-propagation-bom.version>
+        <dbaas-client-bom.version>8.0.0-SNAPSHOT</dbaas-client-bom.version>
+        <context-propagation-bom.version>7.0.0-SNAPSHOT</context-propagation-bom.version>
         <spring-cloud-bom.version>2024.0.0</spring-cloud-bom.version>
         <jackson-bom.version>2.17.0</jackson-bom.version>
+
+        <!-- Cloud-core dependencies -->
+
+        <maas-client.version>11.0.0-SNAPSHOT</maas-client.version>
 
         <!-- 3rd party dependencies -->
 
@@ -39,7 +44,7 @@
 
         <!-- Cloud-core dependencies -->
 
-        <maas-client.version>9.0.21</maas-client.version>
+        <maas-client.version>11.0.0-SNAPSHOT</maas-client.version>
 
         <!-- Plugins -->
 
@@ -53,6 +58,23 @@
         <dependencies>
 
             <!-- BOMs -->
+
+            <dependency>
+                <groupId>org.qubership.cloud</groupId>
+                <artifactId>dbaas-client-bom</artifactId>
+                <version>${dbaas-client-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.qubership.cloud</groupId>
+                <artifactId>context-propagation-bom</artifactId>
+                <version>${context-propagation-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -130,6 +152,13 @@
                 <groupId>org.apache.httpcomponents.client5</groupId>
                 <artifactId>httpclient5</artifactId>
                 <version>${apache.httpclient5.version}</version>
+            </dependency>
+
+            <!-- Used for TenantManagement only! (com.netcracker.cloud.tenantmanager) -->
+            <dependency>
+                <groupId>org.qubership.cloud.maas.client</groupId>
+                <artifactId>maas-client</artifactId>
+                <version>${maas-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -210,7 +239,6 @@
             <version>${jandex.version}</version>
         </dependency>
 
-
         <!-- Utility dependencies -->
 
         <dependency>
@@ -253,6 +281,27 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
+        <!-- Datasource dependencies -->
+
+        <dependency>
+            <groupId>org.qubership.cloud</groupId>
+            <artifactId>dbaas-client-opensearch-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.qubership.cloud</groupId>
+            <artifactId>dbaas-client-resttemplate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.qubership.cloud</groupId>
+            <artifactId>dbaas-client-base</artifactId>
+        </dependency>
+
+        <!-- Used for TenantManagement only! (com.netcracker.cloud.tenantmanager) -->
+
+        <dependency>
+            <groupId>org.qubership.cloud.maas.client</groupId>
+            <artifactId>maas-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

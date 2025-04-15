@@ -20,6 +20,14 @@ datasource:
   configuration:
     enabled: false
 
+dbaas:
+  enabled: false
+
 qip:
   internal-services:
     designtime-catalog: qip-design-time-catalog
+    engine: qip-engine
+
+tenant:
+  default:
+    id: 00000000-0000-0000-0000-000000000000
