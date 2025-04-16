@@ -56,16 +56,8 @@
 
             <dependency>
                 <groupId>org.qubership.cloud</groupId>
-                <artifactId>dbaas-client-bom</artifactId>
-                <version>${dbaas-client-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.qubership.cloud</groupId>
-                <artifactId>context-propagation-bom</artifactId>
-                <version>${context-propagation-bom.version}</version>
+                <artifactId>cloud-core-java-bom</artifactId>
+                <version>${cloud-core-java-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
