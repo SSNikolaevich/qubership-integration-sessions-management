@@ -37,10 +37,6 @@
         <apache.httpclient5.version>5.4</apache.httpclient5.version>
         <jandex.version>3.2.2</jandex.version>
 
-        <!-- Cloud-core dependencies -->
-
-        <maas-client.version>11.0.0-SNAPSHOT</maas-client.version>
-
         <!-- Plugins -->
 
         <jacoco-plugin.version>0.8.11</jacoco-plugin.version>
@@ -139,13 +135,6 @@
                 <groupId>org.apache.httpcomponents.client5</groupId>
                 <artifactId>httpclient5</artifactId>
                 <version>${apache.httpclient5.version}</version>
-            </dependency>
-
-            <!-- Used for TenantManagement only! (com.netcracker.cloud.tenantmanager) -->
-            <dependency>
-                <groupId>org.qubership.cloud.maas.client</groupId>
-                <artifactId>maas-client</artifactId>
-                <version>${maas-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -281,6 +270,18 @@
         <dependency>
             <groupId>org.qubership.cloud</groupId>
             <artifactId>dbaas-client-base</artifactId>
+        </dependency>
+
+        <!-- Consul -->
+
+        <dependency>
+            <groupId>org.qubership.cloud</groupId>
+            <artifactId>consul-config-provider-spring-resttemplate</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.qubership.cloud</groupId>
+            <artifactId>rest-security-adapters</artifactId>
         </dependency>
 
         <!-- Used for TenantManagement only! (com.netcracker.cloud.tenantmanager) -->
