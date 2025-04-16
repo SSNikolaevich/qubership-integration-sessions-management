@@ -19,14 +19,9 @@
 
         <!-- BOMs -->
 
-        <dbaas-client-bom.version>8.0.0-SNAPSHOT</dbaas-client-bom.version>
-        <context-propagation-bom.version>7.0.0-SNAPSHOT</context-propagation-bom.version>
+        <cloud-core-java-bom.version>11.0.0-SNAPSHOT</cloud-core-java-bom.version>
         <spring-cloud-bom.version>2024.0.0</spring-cloud-bom.version>
         <jackson-bom.version>2.17.0</jackson-bom.version>
-
-        <!-- Cloud-core dependencies -->
-
-        <maas-client.version>11.0.0-SNAPSHOT</maas-client.version>
 
         <!-- 3rd party dependencies -->
 
