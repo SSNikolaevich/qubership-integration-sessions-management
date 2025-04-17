@@ -1,7 +1,7 @@
 package org.qubership.integration.platform.sessions.opensearch;
 
-import org.qubership.cloud.dbaas.client.config.DefaultMSInfoProvider;
 import lombok.Getter;
+import org.qubership.cloud.dbaas.client.config.DefaultMSInfoProvider;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
