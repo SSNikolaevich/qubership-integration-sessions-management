@@ -278,18 +278,6 @@
             <groupId>org.qubership.cloud</groupId>
             <artifactId>consul-config-provider-spring-resttemplate</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.qubership.cloud</groupId>
-            <artifactId>rest-security-adapters</artifactId>
-        </dependency>
-
-        <!-- Used for TenantManagement only! (com.netcracker.cloud.tenantmanager) -->
-
-        <dependency>
-            <groupId>org.qubership.cloud.maas.client</groupId>
-            <artifactId>maas-client</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-package org.qubership.integration.platform.sessions.configuration.tenant;
+package org.qubership.integration.platform.sessions.configuration;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
