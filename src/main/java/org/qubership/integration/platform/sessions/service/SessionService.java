@@ -176,6 +176,10 @@ public class SessionService {
         chainIds.forEach(this::deleteByChainId);
     }
 
+    public void deleteBySessionIds(List<String> sessionIds) {
+        sessionIds.forEach(this::deleteBySessionId);
+    }
+
     public SessionSearchResponse getSessions(String chainId,
                                              int offset,
                                              int limit,
